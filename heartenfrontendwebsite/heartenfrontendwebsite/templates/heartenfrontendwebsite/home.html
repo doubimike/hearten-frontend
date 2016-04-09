@@ -1,62 +1,132 @@
 {% extends 'heartenfrontendwebsite/base.html' %}
 {% block title %}前端鼓励狮 Hello{% endblock %} 
 {% block content %}
-	<header>
+	
+	<!-- mask -->
+	<div class="mask">
+	    <div class="mask--dialog-box">
+	        <a class="mask--close-btn"></a>
+	        <div class="mask--content">
+				<div class="mc--header">
+		        	<a href="" class="active">登录</a>
+		        	<a href="" >注册</a>
+		        </div>
+		        <div class="mc--content">
+			        <form action="#" class="login-form show">
+			        	<input type="text" placeholder="请输入登录手机号/邮箱">
+			        	<input type="password" placeholder="6-16位密码，区分大小写，不能用空格">
+			        	<input type="checkbox" id="auto-login"><label for="auto-login">下次自动登录</label>
+			        	<a href="" class="forget-pw">忘记密码</a>
+			        	<a href="" class="btn">登录</a>
+					</form>
+
+					<form action="#" class="register-form hide">
+			        	<input type="text" placeholder="请输入注册手机号/邮箱">
+			        	<input type="text" placeholder="请输入验证码" class="verify-code"> <img src="" alt=""> <a href="#">刷新</a>
+			        	<a href="" class="btn">注册</a>
+					</form>
+
+		        </div>
+		        <div class="other-login">
+		        	<span>其他方式登录</span>
+		        	<a href="">微信</a>
+		        	<a href="">微博</a>
+		        	<a href="">QQ</a>
+		        </div>
+	        </div>	        
+	    </div>
+	</div>  
+
+	<header class="ovh">
 		<h1 class="logo">前端鼓励狮</h1>
-		<nav>
+		<nav class="l">
 			<ul>
 				<li><a href="">鼓励狮花名册</a></li>
 				<li><a href="">鼓励狮论坛</a></li>
 				<li><a href="">'赞助'鼓励狮</a></li>
 				<li><a href="">给鼓励狮们留言</a></li>
 			</ul>
-
+		</nav>
+		<nav class="r login-area">
 			<ul>
-				<li><a href="">登录</a></li>
-				<li><a href="">注册</a></li>
+				<li><a href="" class="dialog-btn register-btn">登录</a></li>
+				<li><a href="" class="dialog-btn login-btn">注册</a></li>
 			</ul>
 		</nav>
 	</header>	
 
 	<main>
 		<div class="section">
-			<div class="module">
-				<h2 class="module--header">
-					前端鼓励狮是？
-				</h2>
-				<p class="module--content">
-					一个由自学前端的小伙伴们组成的互助组织。
-					<br>
-					漫漫前端路上，我们互相鼓励与帮助，We have our back for each other.
-				</p>
-			</div>	
+			<div class="container">
+				<div class="img">
+					{% load staticfiles %}
+					<img src= "{% static "heartenfrontendwebsite/css/img/gulishi.jpg" %}" alt="gulishi">
+				</div>
+				<div class="module">
+					<h2 class="module--header">
+						前端鼓励狮是？
+					</h2>
+					<p class="module--content">
+						一个由自学前端的小伙伴们组成的互助组织。
+						<br>
+						漫漫前端路上，我们互相鼓励与帮助，We have our back for each other.
+					</p>
+				</div>	
+			</div>
 		</div>
-
-		<div class="module">
-			<h2 class="module--header">
-				加入鼓励狮
-			</h2>
-			<p class="module--content">
-				学习路上，有我们的陪伴，幸事幸事。
-				<br>
-				<a href="https://www.douban.com/group/topic/80693213/?start=0#1092897832">点击来到鼓励狮之家~</a>
-			</p>
-		</div>
-
-		<div class="module">
-			<h2 class="module--header">
-				'赞助'鼓励狮
-			</h2>
-			<p class="module--content">
-				在鼓励狮初期，我们就有想法要成立一家公司：**前端鼓励狮有限公司。**指代鼓励狮的人数。公司呢，承接各种前端外包项目~~
-				<br>
-				这个想法蛮单纯的，也不为了赚钱，只是想着给大家找点实战机会。
-				{% load staticfiles %}
-    				<img width="400" src="{% static "heartenfrontendwebsite/images/shizhan.jpg" %}">
-    			在学习路上，我们最缺的就是实战，如果您有前端外包的需求，可以选择前端鼓励狮公司的鼓励狮们，感谢。	
-    			<br>
-			</p>
+			
+		<div class="section">
+			<div class="container">
+				<div class="img">
+					<img src= "{% static "heartenfrontendwebsite/css/img/peiban.jpeg" %}" alt="peiban">
+				</div>
+				<div class="module">
+					<h2 class="module--header">
+						加入鼓励狮
+					</h2>
+					<p class="module--content">
+						学习路上，有我们的陪伴，幸事幸事。
+						<br>
+						<a href="https://www.douban.com/group/topic/80693213/?start=0#1092897832">点击来到鼓励狮之家~</a>
+					</p>
+				</div>
+			</div>
+		</div>	
+			
+		<div class="section">
+			<div class="container">
+				<div class="img">
+					<img src= "{% static "heartenfrontendwebsite/css/img/zanzhu.jpg" %}" alt="zanzhu">
+				</div>
+				<div class="module">
+					<h2 class="module--header">
+						'赞助'鼓励狮
+					</h2>
+					<p class="module--content">
+						在鼓励狮初期，我们就有想法要成立一家公司：**前端鼓励狮有限公司。**指代鼓励狮的人数。公司呢，承接各种前端外包项目~~
+						<br>
+						这个想法蛮单纯的，也不为了赚钱，只是想着给大家找点实战机会。
+						<br>
+		    			在学习路上，我们最缺的就是实战，如果您有前端外包的需求，可以选择前端鼓励狮公司的鼓励狮们，感谢。	
+		    			<br>
+					</p>
+				</div>
+			</div>
 		</div>
 	</main>
+
+	<footer>
+		<div class="container">
+			<ul>
+				<li><a href="">微博</a></li>
+				<li><a href="">微信</a></li>
+			</ul>
+
+			<ul>
+				<li><a href="">csstrick</a></li>
+				<li><a href="">mdn</a></li>
+			</ul>
+		</div>
+	</footer>
 	
 {% endblock %}

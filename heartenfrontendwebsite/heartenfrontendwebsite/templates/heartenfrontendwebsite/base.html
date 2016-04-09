@@ -5,7 +5,15 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1.0">
 	<title>{% block title %}前端鼓励狮{% endblock %}</title>
 	{% load staticfiles %}
+	<link rel="stylesheet" href="{% static "heartenfrontendwebsite/css/module/zxx.lib.css" %}">
+	<link rel="stylesheet" href="{% static "heartenfrontendwebsite/css/module/normalize.css" %}">
+	<link rel="stylesheet" href="{% static "heartenfrontendwebsite/css/include/reset.css" %}">
     <link rel="stylesheet" href="{% static "heartenfrontendwebsite/css/style.css" %}">
+    <script src="{% static "heartenfrontendwebsite/js/jquery.min.js" %}"></script>
+    <script src="{% static "heartenfrontendwebsite/js/widget/dialog.js" %}"></script>
+    <script src="{% static "heartenfrontendwebsite/js/widget/login.js" %}"></script>
+    <script src="{% static "heartenfrontendwebsite/js/widget/register.js" %}"></script>
+    <script src="{% static "heartenfrontendwebsite/js/common.js" %}"></script>
 </head>
 <body>
 	{% block content%}
