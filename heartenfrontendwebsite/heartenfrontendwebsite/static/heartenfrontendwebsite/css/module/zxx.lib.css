@@ -148,7 +148,7 @@
 .p10{padding:10px;}
 .pl10{padding-left:10px;}
 .pt10{padding-top:10px;}
-.pr10{padding-right:10px;}
+.pr10{padding-right:10px;
 .pb10{padding-bottom:10px;}
 .p15{padding:15px;}
 .pl15{padding-left:15px;}
@@ -275,9 +275,8 @@
 /* 单行文字溢出虚点显 示*/
 .ell{text-overflow:ellipsis; white-space:nowrap; overflow:hidden;}
 /* css3过渡动画效果 */
-.trans{
-	-webkit-transition:all 0.3s;	
-	        transition:all 0.3s;
+.trans{	
+	transition:all 0.3s;
 }
 /* 大小不定元素垂直居中 */
 .dib_vm{display:inline-block; width:0; height:100%; vertical-align:middle;}
@@ -300,4 +299,4 @@
 .inline_four, .float_four{width:24.9%;}
 .inline_five, .float_five{width:19.9%;}
 .inline_six, .float_six{width:16.6%;}
-.inline_fix{display:inline-block; width:100%; height:0; overflow:hidden;}
+.inline_fix{display:inline-block; width:100%; height:0; overflow:hidden;}}

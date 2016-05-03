@@ -19,4 +19,7 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$','heartenfrontendwebsite.views.index'), 
+    url(r'^logout/$','heartenfrontendwebsite.views.logout'), 
+    url(r'^login/$','heartenfrontendwebsite.views.login_view'), 
+    include('password_reset.urls'),
 ]

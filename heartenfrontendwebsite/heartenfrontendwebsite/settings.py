@@ -38,6 +38,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'heartenfrontendwebsite',
+    'widget_tweaks',
+    'password_reset'
 )
 
 MIDDLEWARE_CLASSES = (
