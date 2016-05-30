@@ -1,1 +1,0 @@
-function function_name(argument){}function function_name(argument){}function function_name(argument){}function function_name(argument){}var testb=2,testc=3,testd=4,test=1;

@@ -172,5 +172,17 @@ footer {
     footer li a {
       display: block;
       padding: 5px 20px; }
+a {
+  color:black;
+}
+
+body {
+  /*background-color: red !important;*/
+}
 
 /*# sourceMappingURL=style.css.map */
+
+
+.test {
+  /*color: #000;*/
+}
