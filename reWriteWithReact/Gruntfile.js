@@ -1,5 +1,15 @@
 module.exports = function(grunt) {
+    // show elapsed time at the end
+    require('time-grunt')(grunt);
+    // load all grunt tasks
+    require('load-grunt-tasks')(grunt);
+
     grunt.initConfig({
+        develop: {
+            server: {
+                file: 'server.js'
+            }
+        },
         copy: {
             build: {
                 cwd: 'src',
@@ -63,19 +73,20 @@ module.exports = function(grunt) {
         },
         watch: {
             options: {
-                livereload: true
+                livereload: true,
+                nospawn: true
             },
             stylesheets: {
                 files: 'src/**/*.css',
-                tasks: ['copy:stylesheets'],
+                tasks: ['copy:stylesheets','string-replace'],
             },
             scripts: {
                 files: 'src/**/*.js',
-                tasks: ['copy:scripts'],
+                tasks: ['copy:scripts','string-replace'],
             },
             all: {
                 files: ['src/**', '!src/**/*.css', '!src/**/*.js'],
-                tasks: ['copy:else'],
+                tasks: ['copy:else','string-replace'],
             }
         },
         // 用inline的插件就不需要下面这个替换了，不过开发环境
@@ -98,33 +109,10 @@ module.exports = function(grunt) {
                 }
             }
         },
-        // concurrent: {
-        //     target: ['nodemon', 'watch'],
-        //     options: {
-        //         logConcurrentOutput: true
-        //     }
-        // },
-        // nodemon: {
-        //     dev: {
-        //         script: 'server.js'
-        //     }
-        // },
-        // connect: {
-        //     server: {
-        //         option: {
-        //             port: 8000,
-        //             hostname: '*',
-        //             keepalive: true,
-        //             livereload: true
-        //         }
-        //     }
-        // }
         inline: {
             build: {
                 options: {
                     exts: ['ejs'],
-                    // cssmin: true,
-                    // uglify: true
                 },
                 files: [{
                     expand: true,
@@ -148,35 +136,12 @@ module.exports = function(grunt) {
                 }]
             }
         },
-        express: {
-            all: {
-                options: {
-                    port: 3000,
-                    hostname: 'localhost',
-                    bases: ['./build/static'],
-                    livereload: true
-                }
-            }
-        }
     });
 
-    grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-autoprefixer');
-    grunt.loadNpmTasks('grunt-contrib-cssmin');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-inline');
-    grunt.loadNpmTasks('grunt-string-replace');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    // grunt.loadNpmTasks('grunt-concurrent');
-    // grunt.loadNpmTasks('grunt-nodemon');
-    // grunt.loadNpmTasks('grunt-contrib-connect');
-    grunt.loadNpmTasks('grunt-contrib-htmlmin');
-    grunt.loadNpmTasks('grunt-express');
-
+    grunt.loadNpmTasks('grunt-develop');
     grunt.registerTask('stylesheets', 'Compiles the stylesheets.', ['autoprefixer', 'cssmin']);
     grunt.registerTask('scripts', 'Compiles the JS files.', ['uglify']);
     grunt.registerTask('build', 'Compiles all of the assets and copies the files to the build directory.', ['clean', 'copy:build', 'stylesheets', 'scripts', 'inline']);
-    grunt.registerTask('dev', 'Compiles all of the assets and copies the files to the build(dev) directory.', ['clean', 'copy:build', 'string-replace']);
-    grunt.registerTask('default', ['dev']);
+    grunt.registerTask('dev', 'Compiles all of the assets and copies the files to the build(dev) directory.', ['clean', 'copy:build', 'string-replace','develop']);
+    grunt.registerTask('default', ['dev','watch']);
 };

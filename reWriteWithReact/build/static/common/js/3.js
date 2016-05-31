@@ -1,0 +1,1 @@
+function function_name(argument){}var testc=3;
