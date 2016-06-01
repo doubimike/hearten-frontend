@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../../src/static/common/js/script.js"],"names":[],"mappings":"AAAA,SAAS,MAAT,CACI;AAAA;IAAA;IAAA;AAAA,CADJ,EAEI,SAAS,cAAT,CAAwB,MAAxB,CAFJ","file":"script.js","sourcesContent":["ReactDom.render(\n    <h1>Hello, world!</h1>,\n    document.getElementById('test')\n);\n\n"]}

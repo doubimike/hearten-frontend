@@ -10,6 +10,17 @@ module.exports = function(grunt) {
                 file: 'server.js'
             }
         },
+        babel: {
+            options: {
+                sourceMap: true,
+                presets: ['react']
+            },
+            dist: {
+                files: {
+                    'build/static/common/js/script.js': 'src/static/common/js/script.js'
+                }
+            }
+        },
         copy: {
             build: {
                 cwd: 'src',

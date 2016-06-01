@@ -1,1 +1,6 @@
-function function_name(argument){}var test=1;
+ReactDom.render(React.createElement(
+    'h1',
+    null,
+    'Hello, world!'
+), document.getElementById('test'));
+//# sourceMappingURL=script.js.map

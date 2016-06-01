@@ -1,4 +1,5 @@
-var test=1;
-function function_name(argument) {
-    // body...
-}
+ReactDom.render(
+    <h1>Hello, world!</h1>,
+    document.getElementById('test')
+);
+

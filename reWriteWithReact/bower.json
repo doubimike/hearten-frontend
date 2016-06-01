@@ -1,0 +1,21 @@
+{
+  "name": "weber",
+  "description": "t",
+  "main": "server.js",
+  "authors": [
+    "m"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/doubimike/hearten-frontend",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "react": "^15.1.0"
+  }
+}
