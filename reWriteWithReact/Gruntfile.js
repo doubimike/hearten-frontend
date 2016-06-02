@@ -87,17 +87,9 @@ module.exports = function(grunt) {
                 livereload: true,
                 nospawn: true
             },
-            stylesheets: {
-                files: 'src/**/*.css',
-                tasks: ['copy:stylesheets','string-replace'],
-            },
-            scripts: {
-                files: 'src/**/*.js',
-                tasks: ['copy:scripts','string-replace'],
-            },
             all: {
-                files: ['src/**', '!src/**/*.css', '!src/**/*.js'],
-                tasks: ['copy:else','string-replace'],
+                files: ['src/**/*.css', 'src/**/*.js','src/**/*.ejs','Gruntfile.js','server.js'],
+                tasks: ['dev'],
             }
         },
         // 用inline的插件就不需要下面这个替换了，不过开发环境

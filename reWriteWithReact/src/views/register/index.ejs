@@ -1,0 +1,19 @@
+<% include ../partials/head %>
+
+<!-- show any messages that come back with authentication -->
+<% if (message.length > 0) { %>
+    <div><%= message %></div>
+<% } %>
+
+<div id="register"></div>
+
+<script src="../../static/components/js/jquery/dist/jquery.min.js?__inline">
+    
+</script>
+
+
+<script type="text/babel" src="../../static/register/js/register.js?__inline">
+    
+</script>
+
+<% include ../partials/foot %>

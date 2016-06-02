@@ -1,52 +1,11 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>前端鼓励狮testttttttttaaasdfasdf</title>
-    <link rel="stylesheet" href="/common/css/lib/normalize.css">
-    <link rel="stylesheet" href="/common/css/lib/zxx.lib.css">
+<% include ../partials/head %>
+
     <link rel="stylesheet" href="/common/css/lib/reset.css">
     <link rel="stylesheet" href="/common/css/style.css">
-    <script src="/components/js/react/react.js"></script>
-    <script src="/components/js/react/react-dom.min.js"></script>
-    <script src="http://localhost:35729/livereload.js"></script>
+    <title>前端鼓励狮testttttttttaaasdfasdf</title>
 </head>
 <body>
-    <!-- mask -->
-    <div class="mask">
-        <div class="mask--dialog-box">
-            <a class="mask--close-btn"></a>
-            <div class="mask--content">
-                <div class="mc--header">
-                    <a href="#" class="active">登录</a>
-                    <a href="#" >注册</a>
-                </div>
-                <div class="mc--content">
-                    <form action="login/" method="POST" class="login-form show">
-                        {% csrf_token %}
-                        <input type="text" placeholder="请输入登录手机号/邮箱" name="username">
-                        <input type="password" placeholder="6-16位密码，区分大小写，不能用空格" name="password">
-                        <input type="checkbox" id="auto-login"><label for="auto-login">下次自动登录</label>
-                        <input type="submit" class="btn" value="登录">
-                    </form>
 
-                    <form action="/" method="POST" class="register-form hide">
-                        {% csrf_token %}
-                        {{form}}
-                        <input type="submit">
-                    </form>
-
-                </div>
-                <div class="other-login">
-                    <span>其他方式登录</span>
-                    <a href="">微信</a>
-                    <a href="">微博</a>
-                    <a href="">QQ</a>
-                </div>
-            </div>          
-        </div>
-    </div>  
 
     <header class="ovh">
         <h1 class="logo">前端鼓励狮</h1>
@@ -64,8 +23,8 @@
                     <li><a>欢迎, {{ user.username }}。</a>
                     <li><a href="logout/">登出</a></li>
                 {% else %}
-                    <li><a href="" class="dialog-btn register-btn">登录</a></li>
-                    <li><a href="" class="dialog-btn login-btn">注册</a></li>
+                    <li><a href="/login" class="dialog-btn register-btn">登录</a></li>
+                    <li><a href="/register" class="dialog-btn login-btn">注册</a></li>
                 {% endif %}
             </ul>
         </nav>
@@ -127,9 +86,42 @@
         </div>
     </main>
 
-    <div id="test">
-        test
-    </div>
+
+    <!-- mask -->
+    <div class="mask">
+        <div class="mask--dialog-box">
+            <a class="mask--close-btn"></a>
+            <div class="mask--content">
+                <div class="mc--header">
+                    <a href="/login" class="active">登录</a>
+                    <a href="/register" >注册</a>
+                </div>
+                <div class="mc--content">
+                    <form action="login/" method="POST" class="login-form show">
+                        {% csrf_token %}
+                        <input type="text" placeholder="请输入登录手机号/邮箱" name="username">
+                        <input type="password" placeholder="6-16位密码，区分大小写，不能用空格" name="password">
+                        <input type="checkbox" id="auto-login"><label for="auto-login">下次自动登录</label>
+                        <input type="submit" class="btn" value="登录">
+                    </form>
+
+                    <form action="/" method="POST" class="register-form hide">
+                        {% csrf_token %}
+                        {{form}}
+                        <input type="submit">
+                    </form>
+
+                </div>
+                <div class="other-login">
+                    <span>其他方式登录</span>
+                    <a href="">微信</a>
+                    <a href="">微博</a>
+                    <a href="">QQ</a>
+                </div>
+            </div>          
+        </div>
+    </div>  
+
 
     <footer>
         <div class="container">
