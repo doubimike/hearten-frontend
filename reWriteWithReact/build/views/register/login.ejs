@@ -1,0 +1,19 @@
+<% include ../partials/head %>
+
+ <!-- show any messages that come back with authentication -->
+<% if (message.length > 0) { %>
+    <div><%= message %></div>
+<% } %>
+
+<div id="login"></div>
+
+<script src="/components/js/jquery/dist/jquery.min.js">
+    
+</script>
+
+<script type="text/babel" src="/register/js/login.js">
+    
+</script>
+
+
+<% include ../partials/foot %>

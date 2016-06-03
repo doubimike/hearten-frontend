@@ -9,7 +9,7 @@ module.exports = function(app, passport) {
     // routes ================
     // =======================
     // basic route
-    
+
 
     app.get('/login', function(req, res) {
         res.render('register/login', {
@@ -36,22 +36,29 @@ module.exports = function(app, passport) {
 
     // process the signup form
     // app.post('/signup', do all our passport stuff here);
-    app.post('/register', function(req, res) {
+    app.post('/register',
+        // function(req, res) {
 
-        var newUser = User({
-            username: req.body.username,
-            password: req.body.password,
-            admin: false
-        });
+        //         // var newUser = User({
+        //         //     username: req.body.username,
+        //         //     password: req.body.password,
+        //         //     admin: false
+        //         // });
 
-        newUser.save(function(err) {
-            if (err) throw err;
-            res.json({
-                success: true
-            });
-        });
+        //         // newUser.save(function(err) {
+        //         //     if (err) throw err;
+        //         //     res.json({
+        //         //         success: true
+        //         //     });
+        //         // });
 
-    });
+
+        //     }
+        passport.authenticate('local-signup',{
+            successRedirect : '/profile', // redirect to the secure profile section
+            failureRedirect : '/signup', // redirect back to the signup page if there is an error
+            failureFlash : true // allow flash messages
+        }));
 
     // =====================================
     // PROFILE SECTION =====================
