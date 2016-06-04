@@ -56,4 +56,6 @@ app.use(express.static('build/static'));
 // routes ======================================================================
 require('./app/controllers/index')(app, passport); // load our routes and pass in our app and fully configured passport
 
-app.listen(port);
+app.listen(port,function () {
+     console.log('port: '+port) ;
+});
