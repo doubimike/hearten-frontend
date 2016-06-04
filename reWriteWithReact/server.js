@@ -36,7 +36,7 @@ app.set('view engine', 'ejs');
 mongoose.connect(configDB.database); // connect to database
 app.set('superSecret', configDB.secret); // secret variable
 
-// require('./config/passport')(passport); // pass passport for configuration
+require('./config/passport')(passport); // pass passport for configuration
 
 // use morgan to log requests to the console
 app.use(morgan('dev'));

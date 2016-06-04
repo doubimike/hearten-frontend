@@ -5,9 +5,10 @@ var bcrypt   = require('bcrypt-nodejs');
 
 // set up a mongoose model and pass it using module.exports
 var userSchema = new Schema({ 
-    username: String, 
-    password: String, 
-    admin: Boolean 
+    local: {
+        username: String, 
+        password: String, 
+    } 
 });
 
 // methods ======================
