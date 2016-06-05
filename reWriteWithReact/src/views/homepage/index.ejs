@@ -2,7 +2,7 @@
 
     <link rel="stylesheet" href="../../static/common/css/lib/reset.css?__inline">
     <link rel="stylesheet" href="../../static/common/css/style.css?__inline">
-    <title>前端鼓励狮testttttttttaaasdfasdf</title>
+    <title>前端鼓励狮</title>
 </head>
 <body>
 
@@ -19,13 +19,13 @@
         </nav>
         <nav class="r login-area">
             <ul>
-                {% if user.is_authenticated %}
-                    <li><a>欢迎, {{ user.username }}。</a>
+                <% if(typeof user !="undefined") { %>
+                    <li><a>欢迎, <%= user.local.username %>。</a></li>
                     <li><a href="logout/">登出</a></li>
-                {% else %}
-                    <li><a href="/login" class="dialog-btn register-btn">登录</a></li>
-                    <li><a href="/register" class="dialog-btn login-btn">注册</a></li>
-                {% endif %}
+                <% } else{ %>
+                   <li><a href="/login" >登录</a></li>
+                    <li><a href="/register" >注册</a></li>
+                 <% } %>                
             </ul>
         </nav>
     </header>   

@@ -7,16 +7,24 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var flash = require('connect-flash');
 var session = require('express-session');
+var favicon = require('static-favicon');
+var cookieParser = require('cookie-parser');
+var nodemailer = require('nodemailer'); 
+var async = require('async');
+var crypto = require('crypto');
 
 var jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 var configDB = require('./config/database.js'); // get our config file
 var User = require('./app/models/user'); // get our mongoose model
 
+// middleware
+app.use(favicon());
+app.use(cookieParser());
 
 // =======================
 // configuration =========
 // =======================
-var port = process.env.PORT || 8080; // used to create, sign, and verify tokens
+var port = process.env.PORT || 3000; // used to create, sign, and verify tokens
 
 
 // deal post datd
@@ -43,7 +51,8 @@ app.use(morgan('dev'));
 
 
 // required for passport
-app.use(session({ secret: 'iloveheartenfront' })); // session secret
+app.use(session({ secret: 'iloveheartenfront',resave: true,
+    saveUninitialized: true })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
@@ -56,6 +65,4 @@ app.use(express.static('build/static'));
 // routes ======================================================================
 require('./app/controllers/index')(app, passport); // load our routes and pass in our app and fully configured passport
 
-app.listen(port,function () {
-     console.log('port: '+port) ;
-});
+app.listen(port,'0.0.0.0');

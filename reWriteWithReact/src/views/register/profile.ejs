@@ -1,10 +1,15 @@
 <% include ../partials/head %>
 
-<div>test</div>
+<a href="/logout">Logout</a>
+<a href="/">Home</a>
+
+<p>
+    <strong>id</strong>: <%= user._id %><br>
+    <strong>username</strong>: <%= user.local.username %><br>
+    <strong>password</strong>: <%= user.local.password %>
+</p>
 
 <script src="../../static/components/js/jquery/dist/jquery.min.js?__inline">
-    
 </script>
-
 
 <% include ../partials/foot %>

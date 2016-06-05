@@ -145,6 +145,6 @@ module.exports = function(grunt) {
     grunt.registerTask('stylesheets', 'Compiles the stylesheets.', ['autoprefixer', 'cssmin']);
     grunt.registerTask('scripts', 'Compiles the JS files.', ['uglify']);
     grunt.registerTask('build', 'Compiles all of the assets and copies the files to the build directory.', ['clean', 'copy:build', 'stylesheets', 'scripts', 'inline']);
-    grunt.registerTask('dev', 'Compiles all of the assets and copies the files to the build(dev) directory.', ['clean', 'copy:build', 'string-replace','develop']);
+    grunt.registerTask('dev', 'Compiles all of the assets and copies the files to the build(dev) directory.', ['clean', 'copy:build', 'string-replace']);
     grunt.registerTask('default', ['dev','watch']);
 };

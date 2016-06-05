@@ -2,14 +2,8 @@ var express = require('express');
 
 module.exports = function(app, passport) {
     app.get('/', function(req, res) {
-        res.render('homepage/index');
+            res.render('homepage/index',{user: req.user});            
     });
-
-    // =======================
-    // routes ================
-    // =======================
-    // basic route
-
 
     app.get('/login', function(req, res) {
         res.render('register/login', {
@@ -19,10 +13,11 @@ module.exports = function(app, passport) {
 
     // process the login form
     // app.post('/login', do all our passport stuff here);
-    app.post('/login', function(req, res) {
-        // render the page and pass in any flash data if it exists
-        res.render('register/login');
-    });
+    app.post('/login', passport.authenticate('local-login',{
+        successRedirect : '/profile', // redirect to the secure profile section
+        failureRedirect : '/login', // redirect back to the signup page if there is an error
+        failureFlash : true // allow flash messages
+    }));
 
     // =====================================
     // SIGNUP ==============================
@@ -37,27 +32,9 @@ module.exports = function(app, passport) {
     // process the signup form
     // app.post('/signup', do all our passport stuff here);
     app.post('/register',
-        // function(req, res) {
-
-        //         // var newUser = User({
-        //         //     username: req.body.username,
-        //         //     password: req.body.password,
-        //         //     admin: false
-        //         // });
-
-        //         // newUser.save(function(err) {
-        //         //     if (err) throw err;
-        //         //     res.json({
-        //         //         success: true
-        //         //     });
-        //         // });
-
-
-        //     }
-        passport.authenticate('local-signup',{
-            successRedirect : '/profile', // redirect to the secure profile section
-            failureRedirect : '/signup', // redirect back to the signup page if there is an error
-            failureFlash : true // allow flash messages
+        passport.authenticate('local-signup', {
+            successRedirect: '/profile',
+            failureRedirect: '/register'
         }));
 
     // =====================================
@@ -69,6 +46,7 @@ module.exports = function(app, passport) {
         res.render('register/profile', {
             user: req.user // get the user out of session and pass to template
         });
+        
     });
 
     // =====================================
@@ -77,6 +55,63 @@ module.exports = function(app, passport) {
     app.get('/logout', function(req, res) {
         req.logout();
         res.redirect('/');
+    });
+
+    app.get('/forgotpass', function(req, res) {
+        res.render('register/forgotpass',{
+            user: req.user,message: req.flash('forgotPassMessage')
+        });
+    });
+
+    app.post('/forgotpass',function(req,res,next){
+        async.waterfall([
+            function (done) {
+                         crypto.randomBytes(20, function (err,buf) {
+                             var token = buf.toString('hex');
+                             done(err,token);
+                         }); 
+                    },
+            function (token,done) {
+                                User.findOne({email: req.body.email},function (err,user) {
+                                        if(!user){
+                                            req.falsh('error', 'No account with that email address exists.');
+                                            return res.redirect('/forgotpass')
+                                        }
+
+                                        user.resetPasswordToken = token;
+                                        user.resetPasswordDate = Date.now()+3600000;
+
+                                        user.save(function (err) {
+                                            done(err,token,user);
+                                        });
+                                });
+                            },
+            function (token,user,done) {
+                var smtpTransport = nodemailer.createTransport('SMTP', {
+                    service: 'SendGrid',
+                    auth: {
+                      user: '!!! YOUR SENDGRID USERNAME !!!',
+                      pass: '!!! YOUR SENDGRID PASSWORD !!!'
+                    }
+                });
+                var mailOptions = {
+                    to: user.email,
+                    from: 'passwordreset@demo.com',
+                    subject: 'Node.js Password Reset',
+                    text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+                      'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+                      'http://' + req.headers.host + '/reset/' + token + '\n\n' +
+                      'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+                };
+                smtpTransport.sendMail(mailOptions, function(err) {
+                    req.flash('info', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
+                    done(err, 'done');
+                });
+            }                                
+        ],function (err) {
+            if (err) return next(err);
+            res.redirect('/forgotpass');
+        });
     });
 
     // route middleware to make sure a user is logged in
@@ -89,104 +124,4 @@ module.exports = function(app, passport) {
         // if they aren't redirect them to the home page
         res.redirect('/');
     }
-
-
-
-
-    // check all the users 
-
-    var apiRoutes = express.Router();
-    apiRoutes.post('/authenticate', function(req, res) {
-        // find the user
-        User.findOne({
-            username: req.body.username
-        }, function(err, user) {
-
-            if (err) throw err;
-
-            if (!user) {
-                res.json({
-                    success: false,
-                    message: 'Authentication failed. User not found.'
-                });
-            } else if (user) {
-
-                // check if password matches
-                if (user.password != req.body.password) {
-                    res.json({
-                        success: false,
-                        message: 'Authentication failed. Wrong password.'
-                    });
-                } else {
-
-                    // if user is found and password is right
-                    // create a token
-                    var token = jwt.sign(user, app.get('superSecret'), {
-                        // expiresInMinutes: 1440 // expires in 24 hours
-                    });
-
-                    // return the information including token as JSON
-                    res.json({
-                        success: true,
-                        message: 'Enjoy your token!',
-                        token: token
-                    });
-                }
-
-            }
-        });
-    });
-
-    // route middleware to verify a token
-    apiRoutes.use(function(req, res, next) {
-
-        // check header or url parameters or post parameters for token
-        var token = req.body.token || req.query.token || req.headers['x-access-token'];
-
-        // decode token
-        if (token) {
-
-            // verifies secret and checks exp
-            jwt.verify(token, app.get('superSecret'), function(err, decoded) {
-                if (err) {
-                    return res.json({
-                        success: false,
-                        message: 'Failed to authenticate token.'
-                    });
-                } else {
-                    // if everything is good, save to request for use in other routes
-                    req.decoded = decoded;
-                    next();
-                }
-            });
-
-        } else {
-
-            // if there is no token
-            // return an error
-            return res.status(403).send({
-                success: false,
-                message: 'No token provided.'
-            });
-
-        }
-    });
-
-    apiRoutes.get('/', function(req, res) {
-        res.json({
-            message: 'Welcome to the coolest API on earth!'
-        });
-    });
-
-    // route to return all users (GET http://localhost:8080/api/users)
-    apiRoutes.get('/users', function(req, res) {
-        User.find({}, function(err, users) {
-            res.json(users);
-        });
-    });
-
-
-
-    // apply the routes to our application with the prefix /api
-    app.use('/api', apiRoutes);
 };
